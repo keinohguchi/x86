@@ -2,11 +2,12 @@
 PROGS := exit
 PROGS += fp
 PROGS += int
-SRCS  := $(patsubst %,%.s,$(PROGS))
+PROGS += mem
+SRCS  := $(patsubst %,%.asm,$(PROGS))
 all: $(PROGS)
 $(PROGS): $(SRCS)
-	yasm -f elf64 -g dwarf2 -l $@.lst $@.s
-	ld $(LDFLAGS) -o $@ $@.o
+	yasm -f elf64 -g dwarf2 -l $@.lst $@.asm
+	gcc $(LDFLAGS) -o $@ $@.o
 .PHONY: test clean
 test: $(PROGS)
 	@for prog in $^; do ./$$prog; done
