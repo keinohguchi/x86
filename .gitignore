@@ -2,3 +2,5 @@
 *.o
 *.lst
 exit
+fp
+int
