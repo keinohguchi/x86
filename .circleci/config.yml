@@ -1,0 +1,67 @@
+---
+version: 2
+default: &defaults
+  working_directory: /home/circleci/x86
+  machine:
+    image: circleci/classic:edge
+workflows:
+  version: 2
+  checkout_build_help_test:
+    jobs:
+      - checkout
+      - build-amd64:
+          requires:
+            - checkout
+      - build-arm64:
+          requires:
+            - checkout
+      - test-amd64:
+          requires:
+            - build-amd64
+      - test-arm64:
+          requires:
+            - build-arm64
+jobs:
+  checkout:
+    <<: *defaults
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root:  .
+          paths: .
+  build-amd64:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run: make amd64
+  build-arm64:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install Qemu packages for the cross compilation
+          # https://www.ecliptik.com/Cross-Building-and-Running-Multi-Arch-Docker-Images/
+          command: |
+            sudo apt update;
+            sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
+      - run: make arm64
+  test-amd64:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run: make test-amd64
+  test-arm64:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install Qemu packages for the cross compilation
+          # https://www.ecliptik.com/Cross-Building-and-Running-Multi-Arch-Docker-Images/
+          command: |
+            sudo apt update;
+            sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
+      - run: make test-arm64
