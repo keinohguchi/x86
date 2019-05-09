@@ -3,6 +3,7 @@ PROGS := exit
 PROGS += fp
 PROGS += int
 PROGS += mem
+PROGS += reg
 SRCS  := $(patsubst %,%.asm,$(PROGS))
 all: $(PROGS)
 $(PROGS): $(SRCS)

@@ -16,6 +16,6 @@ main:
 	push	rbp		; set up a stack frame
 	mov	rbp, rsp	; rbp points to stack frame
 	sub	rsp, 16		; leave some room
-	xor	eax, eax	; return 0;
+	xor	eax, eax	; return 0
 	leave			; undo stack frame
 	ret
