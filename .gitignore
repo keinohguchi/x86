@@ -5,3 +5,5 @@ exit
 fp
 int
 mem
+reg
+add
