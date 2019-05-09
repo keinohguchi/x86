@@ -15,12 +15,12 @@ $(PROGS): $(SRCS)
 	gcc -static -o $@ $@.o
 .PHONY: test clean
 test: $(PROGS)
-	@for prog in $^;          \
-	do printf "$$prog:\t";    \
-		if ./$$prog;      \
-		then echo "PASS"; \
-		else echo "FAIL"; \
-		fi;               \
+	@for prog in $^;                  \
+	do printf "$$prog:\t";            \
+		if ./$$prog;              \
+		then echo "PASS";         \
+		else echo "FAIL"; exit 1; \
+		fi;                       \
 	done
 clean:
 	@$(RM) $(PROGS) *.o *.lst
