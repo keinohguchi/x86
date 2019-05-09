@@ -24,15 +24,12 @@ test: $(PROGS)
 	done
 clean:
 	@$(RM) $(PROGS) *.o *.lst
-# Cross compilation.  Please take a look at the appropriate Dockerfile.
+# Docker based compilation.
+.PHONY: amd64
 amd64: amd64-image
 	docker run -v $(PWD):/home/build x86/$@ make all clean
-arm64: arm64-image
-	docker run -v $(PWD):/home/build -v $(QEMU):$(QEMU):ro x86/$@ make all clean
-%-amd64: amd64-image
-	docker run -v $(PWD):/home/build x86/amd64 make $* clean
-%-arm64: arm64-image
-	docker run -v $(PWD):/home/build -v $(QEMU):$(QEMU):ro x86/arm64 make $* clean
 %-image:
 	if [ -x $(QEMU) ]; then cp $(QEMU) .; fi
 	docker build -t x86/$* -f Dockerfile.$* .
+%-amd64: amd64-image
+	docker run -v $(PWD):/home/build x86/amd64 make $* clean

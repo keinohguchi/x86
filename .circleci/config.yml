@@ -9,18 +9,12 @@ workflows:
   checkout_build_help_test:
     jobs:
       - checkout
-      - build-amd64:
+      - build:
           requires:
             - checkout
-      - build-arm64:
+      - test:
           requires:
-            - checkout
-      - test-amd64:
-          requires:
-            - build-amd64
-      - test-arm64:
-          requires:
-            - build-arm64
+            - build
 jobs:
   checkout:
     <<: *defaults
@@ -29,39 +23,15 @@ jobs:
       - persist_to_workspace:
           root:  .
           paths: .
-  build-amd64:
+  build:
     <<: *defaults
     steps:
       - attach_workspace:
           at: .
       - run: make amd64
-  build-arm64:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install Qemu packages for the cross compilation
-          # https://www.ecliptik.com/Cross-Building-and-Running-Multi-Arch-Docker-Images/
-          command: |
-            sudo apt update;
-            sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
-      - run: make arm64
-  test-amd64:
+  test:
     <<: *defaults
     steps:
       - attach_workspace:
           at: .
       - run: make test-amd64
-  test-arm64:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install Qemu packages for the cross compilation
-          # https://www.ecliptik.com/Cross-Building-and-Running-Multi-Arch-Docker-Images/
-          command: |
-            sudo apt update;
-            sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
-      - run: make test-arm64
