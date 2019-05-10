@@ -21,5 +21,6 @@ in Action.
 - [add2.asm](add2.asm): Another add instruction example
 - [sub2.asm](sub2.asm): Another sub instruction example
 - [imul.asm](imul.asm): imul: signed multiplication, instruction example
+- [imul2.asm](imul2.asm): imul instruction with 2 arguments example
 
 Happy Hacking!
