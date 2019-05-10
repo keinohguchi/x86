@@ -11,6 +11,7 @@ PROGS += add2
 PROGS += sub2
 PROGS += imul
 PROGS += imul2
+PROGS += imul3
 SRCS  := $(patsubst %,%.asm,$(PROGS))
 QEMU  ?= /usr/bin/qemu-aarch64-static
 all: $(PROGS)
