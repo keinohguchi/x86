@@ -23,5 +23,6 @@ in Action.
 - [imul.asm](imul.asm): imul: signed multiplication, instruction example
 - [imul2.asm](imul2.asm): imul instruction with 2 arguments example
 - [imul3.asm](imul3.asm): imul instruction with 3 arguments example
+- [pytha.asm](pytha.asm): Pythagorean triple example
 
 Happy Hacking!
