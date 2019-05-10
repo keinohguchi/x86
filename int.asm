@@ -10,5 +10,5 @@ e	dd	100000000
 	segment	.text
 	global	main
 main:
-	xor	rax, rax
+	xor	eax, eax	; return 0
 	ret

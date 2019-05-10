@@ -15,9 +15,11 @@ in Action.
 - [fp.asm](fp.asm): Floating point example
 - [mem.asm](mem.asm): Memory example
 - [reg.asm](reg.asm): Register example
-- [add.asm](add.asm): add instruction example
-- [sub.asm](sub.asm): sub instruction example
+- [add.asm](add.asm): add: addition, instruction example
+- [sub.asm](sub.asm): sub: subtraction, instruction example
 - [sum.asm](sum.asm): Moving value from register to memroy example
 - [add2.asm](add2.asm): Another add instruction example
+- [sub2.asm](sub2.asm): Another sub instruction example
+- [imul.asm](imul.asm): imul: signed multiplication, instruction example
 
 Happy Hacking!
