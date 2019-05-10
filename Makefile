@@ -13,6 +13,7 @@ PROGS += imul
 PROGS += imul2
 PROGS += imul3
 PROGS += pytha
+PROGS += idiv
 SRCS  := $(patsubst %,%.asm,$(PROGS))
 QEMU  ?= /usr/bin/qemu-aarch64-static
 all: $(PROGS)
