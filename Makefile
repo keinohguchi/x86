@@ -8,6 +8,7 @@ PROGS += add
 PROGS += sum
 PROGS += sub
 PROGS += add2
+PROGS += sub2
 SRCS  := $(patsubst %,%.asm,$(PROGS))
 QEMU  ?= /usr/bin/qemu-aarch64-static
 all: $(PROGS)
