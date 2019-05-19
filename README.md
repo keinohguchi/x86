@@ -25,6 +25,6 @@ in Action.
 - [imul3.asm](imul3.asm): imul instruction with 3 arguments example
 - [pytha.asm](pytha.asm): Pythagorean triple example
 - [idiv.asm](idiv.asm): idiv, signed division instruction, example
-- [bts.asm](bts.asm): Bit operation example
+- [bts.asm](bts.asm): Bit operations with bt, bts, btr instructions example
 
 Happy Hacking!
