@@ -15,7 +15,6 @@ PROGS += imul3
 PROGS += pytha
 PROGS += idiv
 SRCS  := $(patsubst %,%.asm,$(PROGS))
-QEMU  ?= /usr/bin/qemu-aarch64-static
 all: $(PROGS)
 $(PROGS): $(SRCS)
 	yasm -f elf64 -g dwarf2 -l $@.lst $@.asm
@@ -36,7 +35,6 @@ clean:
 amd64: amd64-image
 	docker run -v $(PWD):/home/build x86/$@ make all clean
 %-image:
-	if [ -x $(QEMU) ]; then cp $(QEMU) .; fi
 	docker build -t x86/$* -f Dockerfile.$* .
 %-amd64: amd64-image
 	docker run -v $(PWD):/home/build x86/amd64 make $* clean
