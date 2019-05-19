@@ -14,6 +14,7 @@ PROGS += imul2
 PROGS += imul3
 PROGS += pytha
 PROGS += idiv
+PROGS += bts
 SRCS  := $(patsubst %,%.asm,$(PROGS))
 all: $(PROGS)
 $(PROGS): $(SRCS)
