@@ -8,6 +8,7 @@ int main(void)
 		int tmp = a;
 		a = b;
 		b = tmp;
-	}
+	} else
+		return 1;
 	return 0;
 }
