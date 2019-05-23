@@ -9,6 +9,6 @@ int main(void)
 		a = b;
 		b = tmp;
 	} else
-		return 1;
+		return 1; /* error */
 	return 0;
 }

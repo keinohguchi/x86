@@ -7,7 +7,9 @@ int main(void)
 {
 	if (a < b)
 		max = b;
-	else
+	else {
 		max = a;
+		return 1; /* error */
+	}
 	return 0;
 }
