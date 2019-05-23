@@ -27,6 +27,7 @@ in Action.
 - [idiv.asm](idiv.asm): idiv, signed division instruction, example
 - [bts.asm](bts.asm): Bit operations with bt, bts, btr instructions example
 - [jmp.asm](jmp.asm): Unconditional jump, jmp instruction, example
-- [swap.asm](swap.asm): Conditional jump, jge instruction, example
+- [swap.asm](swap.asm): Conditional jump with jge, jump greater equal, instruction example
+- [max.asm](max.asm): Conditional jump with jnl, jump not less than, instruction example
 
 Happy Hacking!
