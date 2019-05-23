@@ -29,5 +29,6 @@ in Action.
 - [jmp.asm](jmp.asm): Unconditional jump, jmp instruction, example
 - [swap.asm](swap.asm): Conditional jump with jge, jump greater equal, instruction example
 - [max.asm](max.asm): Conditional jump with jnl, jump not less than, instruction example
+- [mid.asm](mid.asm): Conditional jump with jl, jump less than, instruction example
 
 Happy Hacking!
