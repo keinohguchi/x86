@@ -1,5 +1,6 @@
 .*
 *.o
+*.s
 *.lst
 exit
 fp
@@ -18,3 +19,4 @@ pytha
 idiv
 bts
 jmp
+swap

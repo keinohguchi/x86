@@ -16,11 +16,16 @@ PROGS += pytha
 PROGS += idiv
 PROGS += bts
 PROGS += jmp
-SRCS  := $(patsubst %,%.asm,$(PROGS))
+PROGS += swap
+ASMS  := $(patsubst %,%.asm,$(PROGS))
+SRCS  := $(wildcard *.c)
+DASMS := $(patsubst %.c,%.s,$(SRCS))
 all: $(PROGS)
-$(PROGS): $(SRCS)
+$(PROGS): $(ASMS) $(DASMS)
 	yasm -f elf64 -g dwarf2 -l $@.lst $@.asm
 	gcc -static -o $@ $@.o
+%.s: %.c
+	gcc -O3 -S -masm=intel $<
 .PHONY: test clean
 test: $(PROGS)
 	@for prog in $^;                  \
@@ -31,7 +36,7 @@ test: $(PROGS)
 		fi;                       \
 	done
 clean:
-	@$(RM) $(PROGS) *.o *.lst
+	@$(RM) $(PROGS) *.o *.s *.lst
 # Docker based compilation.
 .PHONY: amd64
 amd64: amd64-image
