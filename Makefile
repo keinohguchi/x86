@@ -19,6 +19,7 @@ PROGS += jmp
 PROGS += swap
 PROGS += max
 PROGS += mid
+PROGS += count
 ASMS  := $(patsubst %,%.asm,$(PROGS))
 SRCS  := $(wildcard *.c)
 DASMS := $(patsubst %.c,%.s,$(SRCS))
