@@ -23,16 +23,18 @@ PROGS += count
 PROGS += search
 PROGS += argv
 ASMS  := $(patsubst %,%.asm,$(PROGS))
-SRCS  := $(wildcard *.c)
-DASMS := $(patsubst %.c,%.s,$(SRCS))
+CSRCS := $(filter-out *_test.c,$(wildcard *.c))
+DASMS := $(patsubst %.c,%.s,$(CSRCS))
+TSRCS := $(wildcard *_test.c)
+TESTS := $(patsubst %.c,%,$(TSRCS))
 all: $(PROGS) run test
 $(PROGS): $(ASMS) $(DASMS)
 	yasm -f elf64 -g dwarf2 -l $@.lst $@.asm
 	gcc -static -o $@ $@.o
 %.s: %.c
 	gcc -O3 -S -masm=intel $<
-.PHONY: run test clean
-run test: $(PROGS)
+.PHONY: run test clean $(TESTS)
+run: $(PROGS)
 	@for prog in $^;                  \
 	do printf "$$prog:\t";            \
 		if ./$$prog;              \
@@ -40,6 +42,14 @@ run test: $(PROGS)
 		else echo "FAIL"; exit 1; \
 		fi;                       \
 	done
+test: $(TESTS)
+$(TESTS): $(PROGS) $(TSRCS)
+	@$(CC) $(CFLAGS) -o $@ $@.c
+	@printf "$@:\t"
+	@if ./$@;                 \
+	then echo "PASS";         \
+	else echo "FAIL"; exit 1; \
+	fi
 clean:
 	@$(RM) $(PROGS) *.o *.s *.lst
 # Docker based compilation.

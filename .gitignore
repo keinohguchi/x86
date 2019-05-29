@@ -2,6 +2,8 @@
 *.o
 *.s
 *.lst
+*_test
+cscope.*
 exit
 fp
 int
