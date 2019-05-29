@@ -33,5 +33,15 @@ in Action.
 - [count.asm](count.asm): Bit counting with while loop
 - [search.asm](search.asm): String search with do-while loop
 - [argv.asm](argv.asm): Command line argument example
+  - [argv_test.c](argv_test.c): argv.asm unit test
+
+## Tests
+
+`make test` will run the command line based unit test:
+
+```sh
+$ make test
+argv_test:      PASS
+```
 
 Happy Hacking!
