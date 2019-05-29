@@ -32,12 +32,13 @@ in Action.
 - [mid.asm](mid.asm): Conditional jump with jl, jump less than, instruction example
 - [count.asm](count.asm): Bit counting with while loop
 - [search.asm](search.asm): String search with do-while loop
+  - [search_test.c](search_test.c): search.asm unit test
 - [argv.asm](argv.asm): Command line argument example
   - [argv_test.c](argv_test.c): argv.asm unit test
 
 ## Tests
 
-`make test` will run the command line based unit test:
+Run fork(2)/execv(3) based unit test through `make test` command:
 
 ```sh
 $ make test

@@ -26,7 +26,7 @@ ASMS  := $(patsubst %,%.asm,$(PROGS))
 TESTS := $(patsubst %.c,%,$(wildcard *_test.c))
 CSRCS := $(filter-out *_test.c,$(wildcard *.c))
 DASMS := $(patsubst %.c,%.s,$(CSRCS))
-all: $(PROGS) $(DASMS) run test
+all: $(PROGS) $(DASMS) test
 %: %.asm
 	yasm -f elf64 -g dwarf2 -l $@.lst $<
 	$(CC) -g -static -o $@ $@.o
@@ -44,10 +44,9 @@ run: $(PROGS)
 test: $(PROGS) $(TESTS)
 $(TESTS):
 	@$(CC) $(CFLAGS) -o $@ $@.c
-	@printf "$@:\t"
-	@if ./$@;                 \
-	then echo "PASS";         \
-	else echo "FAIL"; exit 1; \
+	@if ./$@;                                      \
+	then printf "%-14s%4s\n" "$@:" "PASS";         \
+	else printf "%-14s%4s\n" "$@:" "FAIL"; exit 1; \
 	fi
 clean:
 	@$(RM) $(PROGS) *.o *.s *.lst

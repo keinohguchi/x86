@@ -10,13 +10,13 @@
 
 int main(void)
 {
-	char *const target = realpath("./argv", NULL);
+	char *target = realpath("./search", NULL);
 	const struct {
 		const char	*const name;
-		char		*const argv[2];
+		char		*const argv[3];
 	} *t, tests[] = {
 		{
-			.name	= "no command line option",
+			.name	= "no argument",
 			.argv	= {target, NULL},
 		},
 		{.name = NULL}, /* sentry */
@@ -32,15 +32,15 @@ int main(void)
 			goto perr;
 		else if (pid == 0) {
 			execv(t->argv[0], t->argv);
-			fprintf(stderr, "%s: %s\n",
-				t->name, strerror(errno));
+			fprintf(stderr, "%s: %s\n", t->name,
+				strerror(errno));
 			exit(EXIT_FAILURE);
 		}
 		ret = waitpid(pid, &status, 0);
 		if (ret == -1)
 			goto perr;
 		if (WIFSIGNALED(status)) {
-			fprintf(stderr, "%s: signeled with %s\n",
+			fprintf(stderr, "%s: signaled with %s\n",
 				t->name, strsignal(WTERMSIG(status)));
 			goto err;
 		}
@@ -50,7 +50,7 @@ int main(void)
 			goto err;
 		}
 		if (WEXITSTATUS(status)) {
-			fprintf(stderr, "%s: returns %d\n",
+			fprintf(stderr, "%s: exit with %d\n",
 				t->name, WEXITSTATUS(status));
 			goto err;
 		}
