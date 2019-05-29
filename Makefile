@@ -23,16 +23,15 @@ PROGS += count
 PROGS += search
 PROGS += argv
 ASMS  := $(patsubst %,%.asm,$(PROGS))
+TESTS := $(patsubst %.c,%,$(wildcard *_test.c))
 CSRCS := $(filter-out *_test.c,$(wildcard *.c))
 DASMS := $(patsubst %.c,%.s,$(CSRCS))
-TSRCS := $(wildcard *_test.c)
-TESTS := $(patsubst %.c,%,$(TSRCS))
-all: $(PROGS) run test
-$(PROGS): $(ASMS) $(DASMS)
-	yasm -f elf64 -g dwarf2 -l $@.lst $@.asm
-	gcc -static -o $@ $@.o
+all: $(PROGS) $(DASMS) run test
+%: %.asm
+	yasm -f elf64 -g dwarf2 -l $@.lst $<
+	$(CC) -g -static -o $@ $@.o
 %.s: %.c
-	gcc -O3 -S -masm=intel $<
+	$(CC) -O3 -S -masm=intel $<
 .PHONY: run test clean $(TESTS)
 run: $(PROGS)
 	@for prog in $^;                  \
@@ -42,8 +41,8 @@ run: $(PROGS)
 		else echo "FAIL"; exit 1; \
 		fi;                       \
 	done
-test: $(TESTS)
-$(TESTS): $(PROGS) $(TSRCS)
+test: $(PROGS) $(TESTS)
+$(TESTS):
 	@$(CC) $(CFLAGS) -o $@ $@.c
 	@printf "$@:\t"
 	@if ./$@;                 \
