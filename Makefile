@@ -24,14 +24,14 @@ PROGS += search
 ASMS  := $(patsubst %,%.asm,$(PROGS))
 SRCS  := $(wildcard *.c)
 DASMS := $(patsubst %.c,%.s,$(SRCS))
-all: $(PROGS)
+all: $(PROGS) run test
 $(PROGS): $(ASMS) $(DASMS)
 	yasm -f elf64 -g dwarf2 -l $@.lst $@.asm
 	gcc -static -o $@ $@.o
 %.s: %.c
 	gcc -O3 -S -masm=intel $<
-.PHONY: test clean
-test: $(PROGS)
+.PHONY: run test clean
+run test: $(PROGS)
 	@for prog in $^;                  \
 	do printf "$$prog:\t";            \
 		if ./$$prog;              \

@@ -12,6 +12,9 @@ workflows:
       - build:
           requires:
             - checkout
+      - run:
+          requires:
+            - build
       - test:
           requires:
             - build
@@ -29,6 +32,12 @@ jobs:
       - attach_workspace:
           at: .
       - run: make amd64
+  run:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - run: make run-amd64
   test:
     <<: *defaults
     steps:
