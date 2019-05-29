@@ -31,5 +31,6 @@ in Action.
 - [max.asm](max.asm): Conditional jump with jnl, jump not less than, instruction example
 - [mid.asm](mid.asm): Conditional jump with jl, jump less than, instruction example
 - [count.asm](count.asm): Bit counting with while loop
+- [search.asm](search.asm): String search with do-while loop
 
 Happy Hacking!
