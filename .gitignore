@@ -3,6 +3,7 @@
 *.s
 *.lst
 *_test
+a.out
 cscope.*
 exit
 fp
@@ -27,3 +28,4 @@ mid
 count
 search
 argv
+clist

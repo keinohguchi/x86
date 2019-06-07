@@ -22,6 +22,7 @@ PROGS += mid
 PROGS += count
 PROGS += search
 PROGS += argv
+PROGS += clist
 ASMS  := $(patsubst %,%.asm,$(PROGS))
 TESTS := $(patsubst %.c,%,$(wildcard *_test.c))
 CSRCS := $(filter-out *_test.c,$(wildcard *.c))
