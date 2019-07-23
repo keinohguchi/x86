@@ -2,24 +2,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
-#include <errno.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
+struct test {
+	const char	*const name;
+	char		*argv[5];
+};
+
+static void test(const struct test *restrict t)
+{
+	exit(EXIT_SUCCESS);
+}
+
 int main(void)
 {
-	char *target = realpath("./search", NULL);
-	const struct {
-		const char	*const name;
-		char		*const argv[3];
-	} *t, tests[] = {
-		{
-			.name	= "no argument",
-			.argv	= {target, NULL},
-		},
-		{.name = NULL}, /* sentry */
+	const struct test *t, tests[] = {
+		{.name = NULL},
 	};
 	int fail = 0;
 
@@ -30,17 +30,14 @@ int main(void)
 		pid = fork();
 		if (pid == -1)
 			goto perr;
-		else if (pid == 0) {
-			execv(t->argv[0], t->argv);
-			fprintf(stderr, "%s: %s\n", t->name,
-				strerror(errno));
-			exit(EXIT_FAILURE);
-		}
+		else if (pid == 0)
+			test(t);
+
 		ret = waitpid(pid, &status, 0);
 		if (ret == -1)
 			goto perr;
 		if (WIFSIGNALED(status)) {
-			fprintf(stderr, "%s: signaled with %s\n",
+			fprintf(stderr, "%s: signaled by %s\n",
 				t->name, strsignal(WTERMSIG(status)));
 			goto err;
 		}
@@ -49,11 +46,8 @@ int main(void)
 				t->name);
 			goto err;
 		}
-		if (WEXITSTATUS(status)) {
-			fprintf(stderr, "%s: exit with %d\n",
-				t->name, WEXITSTATUS(status));
+		if (WEXITSTATUS(status))
 			goto err;
-		}
 		continue;
 perr:
 		perror(t->name);

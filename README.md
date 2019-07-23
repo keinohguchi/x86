@@ -10,39 +10,19 @@ in Action.
 
 ## Programs
 
-- [exit.asm](exit.asm): exit(2) example
-- [int.asm](int.asm): Integer example
-- [fp.asm](fp.asm): Floating point example
-- [mem.asm](mem.asm): Memory example
-- [reg.asm](reg.asm): Register example
-- [add.asm](add.asm): add, addition instruction, example
-- [sub.asm](sub.asm): sub, subtraction instruction, example
-- [sum.asm](sum.asm): Moving value from register to memroy example
-- [add2.asm](add2.asm): Another add instruction example
-- [sub2.asm](sub2.asm): Another sub instruction example
-- [imul.asm](imul.asm): imul, signed multiplication instruction, example
-- [imul2.asm](imul2.asm): imul instruction with 2 arguments example
-- [imul3.asm](imul3.asm): imul instruction with 3 arguments example
-- [pytha.asm](pytha.asm): Pythagorean triple example
-- [idiv.asm](idiv.asm): idiv, signed division instruction, example
-- [bts.asm](bts.asm): Bit operations with bt, bts, btr instructions example
-- [jmp.asm](jmp.asm): Unconditional jump, jmp instruction, example
-- [swap.asm](swap.asm): Conditional jump with jge, jump greater equal, instruction example
-- [max.asm](max.asm): Conditional jump with jnl, jump not less than, instruction example
-- [mid.asm](mid.asm): Conditional jump with jl, jump less than, instruction example
-- [count.asm](count.asm): Bit counting with while loop
-- [search.asm](search.asm): String search with do-while loop
-  - [search_test.c](search_test.c): search.asm unit test
-- [argv.asm](argv.asm): Command line argument example
-  - [argv_test.c](argv_test.c): argv.asm unit test
+- [hello.asm]: Hello world program
+  - [hello_test.c]: [hello.asm] unit test
+
+[hello.asm]: hello.asm
+[hello_test.c]: hello_test.c
 
 ## Tests
 
-Run fork(2)/execv(3) based unit test through `make test` command:
+`make test` will run fork(2)/execv(3) based unit test:
 
 ```sh
 $ make test
-argv_test:      PASS
+hello_test:      PASS
 ```
 
 Happy Hacking!
