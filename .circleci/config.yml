@@ -1,9 +1,9 @@
 ---
 version: 2
-default: &defaults
+defaults: &defaults
   working_directory: /home/circleci/x86
   machine:
-    image: circleci/classic:edge
+    image: ubuntu-1604:201903-01
 workflows:
   version: 2
   checkout_build_help_test:
