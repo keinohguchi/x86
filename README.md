@@ -12,9 +12,13 @@ in Action.
 
 - [hello.asm]: Hello world program
   - [hello_test.c]: [hello.asm] unit test
+- [memory.asm]: Data and BSS memory handling example
+  - [memory_test.c]: [memory.asm] unit test
 
 [hello.asm]: hello.asm
+[memory.asm]: mem.asm
 [hello_test.c]: hello_test.c
+[memory_test.c]: mem_test.c
 
 ## Tests
 
