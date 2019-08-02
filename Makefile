@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 PROGS  := hello
 PROGS  += memory
+PROGS  += register
 ASMS   := $(patsubst %,%.asm,$(PROGS))
 TESTS  := $(patsubst %.c,%,$(wildcard *_test.c))
 CSRCS  := $(filter-out *_test.c,$(wildcard *.c))
@@ -27,8 +28,8 @@ test: $(PROGS) $(TESTS)
 $(TESTS):
 	@$(CC) $(CFLAGS) -o $@ $@.c
 	@if ./$@;                                      \
-	then printf "%-14s%4s\n" "$@:" "PASS";         \
-	else printf "%-14s%4s\n" "$@:" "FAIL"; exit 1; \
+	then printf "%-15s%4s\n" "$@:" "PASS";         \
+	else printf "%-15s%4s\n" "$@:" "FAIL"; exit 1; \
 	fi
 clean:
 	@$(RM) $(PROGS) $(TESTS) *.o *.s *.lst
