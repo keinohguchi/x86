@@ -14,8 +14,10 @@ in Action.
   - [hello_test.c]: [hello.asm] unit test
 - [memory.asm]: Data and BSS memory handling example
   - [memory_test.c]: [memory.asm] unit test
-- [register.asm]: Registers play ground
+- [register.asm]: Registers exmaple
   - [register_test.c]: [register.asm] unit test
+- [bit.asm]: Bit operation example
+  - [bit_test.c]: [bit.asm] unit test
 
 [hello.asm]: hello.asm
 [memory.asm]: mem.asm
@@ -28,7 +30,7 @@ in Action.
 
 ## Tests
 
-`make test` will run fork(2)/execv(3) based unit test:
+`make test` will run fork(2)/execv(3) based unit tests:
 
 ```sh
 $ make test
