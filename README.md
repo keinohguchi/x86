@@ -18,15 +18,19 @@ in Action.
   - [register_test.c]: [register.asm] unit test
 - [bit.asm]: Bit operation example
   - [bit_test.c]: [bit.asm] unit test
+- [countbits.asm]: Bit counting example
+  - [countbits_test.c]: [countbits.asm] unit test
 
 [hello.asm]: hello.asm
-[memory.asm]: mem.asm
-[register.asm]: register.asm
-[bit.asm]: bit.asm
 [hello_test.c]: hello_test.c
+[memory.asm]: mem.asm
 [memory_test.c]: mem_test.c
+[register.asm]: register.asm
 [register_test.c]: register_test.c
+[bit.asm]: bit.asm
 [bit_test.c]: bit_test.c
+[countbits.asm]: countbits.asm
+[countbits_test.c]: countbits_test.c
 
 ## Tests
 

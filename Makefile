@@ -3,6 +3,7 @@ PROGS  := hello
 PROGS  += memory
 PROGS  += register
 PROGS  += bit
+PROGS  += countbits
 ASMS   := $(patsubst %,%.asm,$(PROGS))
 TESTS  := $(patsubst %.c,%,$(wildcard *_test.c))
 CSRCS  := $(filter-out *_test.c,$(wildcard *.c))
