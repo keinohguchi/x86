@@ -12,13 +12,14 @@ DASMS  := $(patsubst %.c,%.s,$(CSRCS))
 CFLAGS += -Wall
 CFLAGS += -Werror
 CFLAGS += -Wimplicit-fallthrough
-.PHONY: test clean $(TESTS)
-all: $(PROGS) $(DASMS) test
-%: %.asm
-	yasm -f elf64 -g dwarf2 -l $@.lst $<
-	$(CC) $(CFLAGS) -g -static -o $@ $@.o
-%.s: %.c
-	$(CC) $(CFLAGS) -O3 -S -masm=intel $<
+.PHONY: run test clean $(TESTS)
+all: $(PROGS) $(DASMS) run test
+run: $(PROGS)
+	@for prog in $^;                           \
+	do if ./$$prog;                            \
+	then printf "%-16s%4s\n" "$$prog:" "PASS"; \
+	else printf "%-16s%4s\n" "$$prog:" "FAIL"; \
+	fi; done
 test: $(PROGS) $(TESTS)
 $(TESTS):
 	@$(CC) $(CFLAGS) -o $@ $@.c
@@ -26,6 +27,11 @@ $(TESTS):
 	then printf "%-16s%4s\n" "$@:" "PASS";         \
 	else printf "%-16s%4s\n" "$@:" "FAIL"; exit 1; \
 	fi
+%: %.asm
+	yasm -f elf64 -g dwarf2 -l $@.lst $<
+	$(CC) $(CFLAGS) -g -static -o $@ $@.o
+%.s: %.c
+	$(CC) $(CFLAGS) -O3 -S -masm=intel $<
 clean:
 	@$(RM) $(PROGS) $(TESTS) *.o *.s *.lst
 # Docker based compilation.
