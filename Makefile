@@ -4,34 +4,27 @@ PROGS  += memory
 PROGS  += register
 PROGS  += bit
 PROGS  += countbits
+PROGS  += factorial
 ASMS   := $(patsubst %,%.asm,$(PROGS))
-TESTS  := $(patsubst %.c,%,$(wildcard *_test.c))
+TESTS  := $(patsubst %,%_test,$(PROGS))
 CSRCS  := $(filter-out *_test.c,$(wildcard *.c))
 DASMS  := $(patsubst %.c,%.s,$(CSRCS))
 CFLAGS += -Wall
 CFLAGS += -Werror
 CFLAGS += -Wimplicit-fallthrough
+.PHONY: test clean $(TESTS)
 all: $(PROGS) $(DASMS) test
 %: %.asm
 	yasm -f elf64 -g dwarf2 -l $@.lst $<
 	$(CC) $(CFLAGS) -g -static -o $@ $@.o
 %.s: %.c
 	$(CC) $(CFLAGS) -O3 -S -masm=intel $<
-.PHONY: run test clean $(TESTS)
-run: $(PROGS)
-	@for prog in $^;                  \
-	do printf "$$prog:\t";            \
-		if ./$$prog;              \
-		then echo "PASS";         \
-		else echo "FAIL"; exit 1; \
-		fi;                       \
-	done
 test: $(PROGS) $(TESTS)
 $(TESTS):
 	@$(CC) $(CFLAGS) -o $@ $@.c
 	@if ./$@;                                      \
-	then printf "%-15s%4s\n" "$@:" "PASS";         \
-	else printf "%-15s%4s\n" "$@:" "FAIL"; exit 1; \
+	then printf "%-16s%4s\n" "$@:" "PASS";         \
+	else printf "%-16s%4s\n" "$@:" "FAIL"; exit 1; \
 	fi
 clean:
 	@$(RM) $(PROGS) $(TESTS) *.o *.s *.lst

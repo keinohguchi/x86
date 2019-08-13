@@ -20,6 +20,8 @@ in Action.
   - [bit_test.c]: [bit.asm] unit test
 - [countbits.asm]: Bit counting example
   - [countbits_test.c]: [countbits.asm] unit test
+- [factorial.asm]: Factorial example
+  - [factorial_test.c]: [factorial.asm] unit test
 
 [hello.asm]: hello.asm
 [hello_test.c]: hello_test.c
