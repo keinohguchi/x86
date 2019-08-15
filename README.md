@@ -37,6 +37,8 @@ in Action.
 [bit_test.c]: bit_test.c
 [countbits.asm]: countbits.asm
 [countbits_test.c]: countbits_test.c
+[factorial.asm]: factorial.asm
+[factorial_test.c]: factorial_test.c
 
 ## Tests
 
