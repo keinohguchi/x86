@@ -1,12 +1,8 @@
 ; SPDX-License-Identifier: GPL-2.0
 	section	.data
 input	dq	4
-result	dq	0
-fmt	db	"factorial(%ld)=%ld", 0xa, 0
 	section	.text
-	global	main
-	global	factorial
-	extern	printf
+	global	main, factorial
 main:
 	push	rbp
 	mov	rbp, rsp
