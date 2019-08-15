@@ -12,6 +12,8 @@ in Action.
 
 - [hello.asm]: Hello world program
   - [hello_test.c]: [hello.asm] unit test
+- [cmdline.asm]: Command line argument handling example
+  - [cmdline_test.c]: [cmdline.asm] unit test
 - [memory.asm]: Data and BSS memory handling example
   - [memory_test.c]: [memory.asm] unit test
 - [register.asm]: Registers exmaple
@@ -25,6 +27,8 @@ in Action.
 
 [hello.asm]: hello.asm
 [hello_test.c]: hello_test.c
+[cmdline.asm]: cmdline.asm
+[cmdline_test.c]: cmdline_test.c
 [memory.asm]: mem.asm
 [memory_test.c]: mem_test.c
 [register.asm]: register.asm

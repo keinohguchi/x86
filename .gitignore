@@ -6,6 +6,7 @@
 a.out
 cscope.*
 hello
+cmdline
 memory
 register
 bit

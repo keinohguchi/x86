@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0
 PROGS	:= hello
+PROGS	+= cmdline
 PROGS	+= memory
 PROGS	+= register
 PROGS	+= bit
@@ -13,17 +14,15 @@ CFLAGS	+= -Wall
 CFLAGS	+= -Werror
 CFLAGS	+= -Wimplicit-fallthrough
 .PHONY: run test clean $(TESTS)
-all: $(PROGS) $(DASMS) run test
+all: $(PROGS) $(DASMS) run
 run: $(PROGS)
-	@for prog in $^;                           \
-	do if ./$$prog;                            \
-	then printf "%-16s%4s\n" "$$prog:" "PASS"; \
-	else printf "%-16s%4s\n" "$$prog:" "FAIL"; \
-	fi; done
+	@for i in $^;                   \
+	do if ! ./$$i; then exit 1; fi; \
+	done
 test: $(PROGS) $(TESTS)
 $(TESTS):
 	@$(CC) $(CFLAGS) -o $@ $@.c
-	@if ./$@;                                      \
+	@if ./$@>/dev/null 2>&1;                       \
 	then printf "%-16s%4s\n" "$@:" "PASS";         \
 	else printf "%-16s%4s\n" "$@:" "FAIL"; exit 1; \
 	fi
