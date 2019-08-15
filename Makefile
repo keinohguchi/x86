@@ -1,17 +1,17 @@
 # SPDX-License-Identifier: GPL-2.0
-PROGS  := hello
-PROGS  += memory
-PROGS  += register
-PROGS  += bit
-PROGS  += countbits
-PROGS  += factorial
-ASMS   := $(patsubst %,%.asm,$(PROGS))
-TESTS  := $(patsubst %,%_test,$(PROGS))
-CSRCS  := $(filter-out *_test.c,$(wildcard *.c))
-DASMS  := $(patsubst %.c,%.s,$(CSRCS))
-CFLAGS += -Wall
-CFLAGS += -Werror
-CFLAGS += -Wimplicit-fallthrough
+PROGS	:= hello
+PROGS	+= memory
+PROGS	+= register
+PROGS	+= bit
+PROGS	+= countbits
+PROGS	+= factorial
+ASMS	:= $(patsubst %,%.asm,$(PROGS))
+TESTS	:= $(patsubst %,%_test,$(PROGS))
+CSRCS	:= $(filter-out *_test.c,$(wildcard *.c))
+DASMS	:= $(patsubst %.c,%.s,$(CSRCS))
+CFLAGS	+= -Wall
+CFLAGS	+= -Werror
+CFLAGS	+= -Wimplicit-fallthrough
 .PHONY: run test clean $(TESTS)
 all: $(PROGS) $(DASMS) run test
 run: $(PROGS)
