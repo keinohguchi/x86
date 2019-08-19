@@ -6,23 +6,15 @@ want	dq	24
 fmt	db	"%s: %ld! == %ld", 0xa, 0
 failfmt	db	"%s: %ld!(%ld) != %ld", 0xa, 0
 	segment	.text
-	global	main, factorial
+	global	main, factorial, parse
 	extern	atoi, printf
-main	push	rbp
-	mov	rbp, rsp
-	mov	rax, [rsi]
+main	mov	rax, [rsi]	; argv[0]
 	mov	[prognam], rax
-	cmp	rdi, 3
-	jne	.start
-	sub	rsp, 16
-	mov	[rsp], rsi
-	mov	rdi, [rsi+8]
-	call	atoi
-	mov	[n], rax
-	mov	rsi, [rsp]
-	mov	rdi, [rsi+16]
-	call	atoi
-	mov	[want], rax
+	cmp	edi, 3
+	jnz	.start
+	mov	rdi, [rsi+8]	; argv[1]
+	mov	rsi, [rsi+16]	; argv[2]
+	call	parse
 .start	mov	rdi, [n]
 	mov	esi, 1
 	call	factorial
@@ -36,7 +28,7 @@ main	push	rbp
 	xor	eax, eax
 	call	printf
 	mov	eax, 1
-	jmp	.out
+	ret
 .pass	mov	rdi, fmt
 	mov	rsi, [prognam]
 	mov	rdx, [n]
@@ -44,7 +36,6 @@ main	push	rbp
 	xor	eax, eax
 	call	printf
 	xor	eax, eax
-.out	leave
 	ret
 factorial
 	push	rbp
@@ -59,5 +50,16 @@ factorial
 	imul	rsi, rdi
 	dec	rdi
 	call	factorial
+	leave
+	ret
+parse	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 16
+	mov	[rsp], rsi
+	call	atoi
+	mov	[n], rax
+	mov	rdi, [rsp]
+	call	atoi
+	mov	[want], rax
 	leave
 	ret
