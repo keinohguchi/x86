@@ -4,13 +4,12 @@ fmt	db	"%s ", 0
 	section	.text
 	global	main
 	extern	printf, putchar
-main
-	push	rbp
+main	push	rbp
 	mov	rbp, rsp
 	sub	rsp, 16
 	mov	rcx, rsi
 	mov	rsi, [rcx]
-.more:	lea	rdi, [fmt]
+.more:	mov	rdi, fmt
 	mov	[rsp], rcx
 	xor	eax, eax
 	call	printf

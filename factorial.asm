@@ -8,12 +8,15 @@ failfmt	db	"%s: %ld!(%ld) != %ld", 0xa, 0
 	segment	.text
 	global	main, factorial, parse
 	extern	atoi, printf
-main	mov	rax, [rsi]	; argv[0]
+main	push	rbp
+	mov	rbp, rsp
+	mov	rax, [rsi]	; argv[0]
 	mov	[prognam], rax
 	cmp	edi, 3
 	jnz	.start
-	mov	rdi, [rsi+8]	; argv[1]
-	mov	rsi, [rsi+16]	; argv[2]
+	mov	rcx, rsi
+	mov	rdi, [rcx+8]	; argv[1]
+	mov	rsi, [rcx+16]	; argv[2]
 	call	parse
 .start	mov	rdi, [n]
 	mov	esi, 1
@@ -28,7 +31,7 @@ main	mov	rax, [rsi]	; argv[0]
 	xor	eax, eax
 	call	printf
 	mov	eax, 1
-	ret
+	jmp	.out
 .pass	mov	rdi, fmt
 	mov	rsi, [prognam]
 	mov	rdx, [n]
@@ -36,6 +39,7 @@ main	mov	rax, [rsi]	; argv[0]
 	xor	eax, eax
 	call	printf
 	xor	eax, eax
+.out	leave
 	ret
 factorial
 	push	rbp

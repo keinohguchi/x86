@@ -1,57 +1,53 @@
 ; SPDX-License-Identifier: GPL-2.0
 	segment	.data
-fmt	db	"%s: %#lx contains %d 1(s)", 0xa, 0
 data	dq	0xfedcba9876543210	; example data for bit counting
 want	dd	32			; 32 ones in data above
+prognam	dq	0
+fmt	db	"%s: %#lx contains %d 1(s)", 0xa, 0
 	segment	.text
-	global	main
+	global	main, parse
 	extern	strtol, atoi, printf
-main
-	push	rbp
+main	push	rbp
 	mov	rbp, rsp
-.argc	equ	0
-.argv	equ	8
-.data	equ	16
-.want	equ	24
-	sub	rsp, 32
-	mov	[rsp+.argc], rdi
-	mov	[rsp+.argv], rsi
+	mov	rax, [rsi]
+	mov	[prognam], rax
 	cmp	rdi, 3
-	jne	.default
-	mov	rdi, [rsi+8]
-	mov	rsi, 0
-	mov	rdx, 16
-	call	strtol
-	mov	[rsp+.data], rax
-	mov	rsi, [rsp+.argv]
-	mov	rdi, [rsi+16]
-	call	atoi
-	mov	[rsp+.want], rax
-	jmp	.start
-.default
-	mov	rax, [data]
-	mov	[rsp+.data], rax
-	mov	eax, [want]
-	mov	[rsp+.want], rax
+	jne	.start
+	mov	rcx, rsi
+	mov	rdi, [rcx+8]	; argv[1]
+	mov	rsi, [rcx+16]	; argv[2]
+	call	parse
 .start	xor	eax, eax
 	xor	ebx, ebx
 	mov	ecx, 64
-	mov	rdx, [rsp+.data]
+	mov	rdx, [data]
 .while	bt	edx, 0
 	setc	bl
 	add	eax, ebx
 	shr	rdx, 1
 	sub	ecx, 1
 	jnz	.while
-	cmp	eax, [rsp+.want]
+	cmp	eax, [want]
 	jne	.out
 	mov	rdi, fmt
-	mov	rsi, [rsp+.argv]
-	mov	rsi, [rsi+0x0]
-	mov	rdx, [rsp+.data]
-	mov	rcx, rax
+	mov	rsi, [prognam]
+	mov	rdx, [data]
+	mov	ecx, [want]
 	xor	eax, eax
 	call	printf
 	xor	eax, eax
 .out	leave
+	ret
+parse	push	rbp
+	mov	rbp, rsp
+	sub	rsp, 16
+	mov	[rsp], rsi
+	mov	rsi, 0
+	mov	rdx, 16
+	call	strtol
+	mov	[data], rax
+	mov	rdi, [rsp]
+	call	atoi
+	mov	[want], eax
+	leave
 	ret
