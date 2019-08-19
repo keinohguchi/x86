@@ -1,21 +1,27 @@
 ; SPDX-License-Identifier: GPL-2.0
-	section	.data
-input	dq	4
-	section	.text
+	segment	.data
+n	dq	4
+want	dq	24		; 4! == 24
+	segment	.text
 	global	main, factorial
-main:
-	push	rbp
+main	push	rbp
 	mov	rbp, rsp
-	mov	rdi, [input]
+.n	equ	0
+.want	equ	8
+	sub	rsp, 16
+	mov	rax, [n]
+	mov	[rsp+.n], rax
+	mov	rax, [want]
+	mov	[rsp+.want], rax
+	mov	rdi, [rsp+.n]
 	mov	esi, 1
 	call	factorial
-	cmp	rax, 24		; 4! == 24
-	jne	.fail
+	cmp	rax, [rsp+.want]
+	jne	.out
 	xor	eax, eax
-.fail
-	leave
+.out	leave
 	ret
-factorial:
+factorial
 	push	rbp
 	mov	rbp, rsp
 	cmp	rdi, 1
