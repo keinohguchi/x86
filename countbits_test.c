@@ -44,6 +44,10 @@ int main(void)
 			.name	= "value 0x87",
 			.argv	= {target, "0x87", "4", NULL},
 		},
+		{
+			.name	= "value 0x7edcba9876543210",
+			.argv	= {target, "0x7edcba9876543210", "31", NULL},
+		},
 		{.name = NULL},
 	};
 	int fail = 0;
