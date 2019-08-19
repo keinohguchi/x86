@@ -10,9 +10,19 @@ main
 	mov	rbp, rsp
 	sub	rsp, 16
 	cmp	rdi, 3
-	jz	.done
+	jne	.else
+	mov	rdi, [rsi+8]
+	mov	[rsp], rsi
+	call	atoi
+	mov	rdx, rax
+	mov	rsi, [rsp]
+	mov	rdi, [rsi+16]
+	call	atoi
+	mov	[rsp], rax
+	jmp	.done
+.else
 	mov	rdx, [data]
-	mov	eax, 32
+	mov	eax, [want]
 	mov	[rsp], rax
 .done	xor	eax, eax
 	xor	ebx, ebx

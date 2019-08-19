@@ -20,6 +20,30 @@ int main(void)
 			.name	= "no command line arguments",
 			.argv	= {target, NULL},
 		},
+		{
+			.name	= "value 0x1",
+			.argv	= {target, "0x1", "1", NULL},
+		},
+		{
+			.name	= "value 0x2",
+			.argv	= {target, "0x2", "1", NULL},
+		},
+		{
+			.name	= "value 0x3",
+			.argv	= {target, "0x3", "2", NULL},
+		},
+		{
+			.name	= "value 0x7",
+			.argv	= {target, "0x7", "3", NULL},
+		},
+		{
+			.name	= "value 0x8",
+			.argv	= {target, "0x8", "1", NULL},
+		},
+		{
+			.name	= "value 0x87",
+			.argv	= {target, "0x87", "4", NULL},
+		},
 		{.name = NULL},
 	};
 	int fail = 0;
