@@ -3,9 +3,9 @@
 data	dq	0xfedcba9876543210	; example data for bit counting
 want	dd	32			; 32 ones in data above
 prognam	dq	0
-fmt	db	"%s: %#lx contains %d 1(s)", 0xa, 0
+passfmt	db	"%s: %#lx contains %d 1(s)", 0xa, 0
 	segment	.text
-	global	main, parse
+	global	main, parse, check
 	extern	strtol, atoi, printf
 main	push	rbp
 	mov	rbp, rsp
@@ -27,16 +27,9 @@ main	push	rbp
 	shr	rdx, 1
 	sub	ecx, 1
 	jnz	.while
-	cmp	eax, [want]
-	jne	.out
-	mov	rdi, fmt
-	mov	rsi, [prognam]
-	mov	rdx, [data]
-	mov	ecx, [want]
-	xor	eax, eax
-	call	printf
-	xor	eax, eax
-.out	leave
+	mov	rdi, rax
+	call	check
+	leave
 	ret
 parse	push	rbp
 	mov	rbp, rsp
@@ -50,4 +43,16 @@ parse	push	rbp
 	call	atoi
 	mov	[want], eax
 	leave
+	ret
+check	cmp	edi, [want]
+	jz	.pass
+	mov	eax, 1
+	ret
+.pass	lea	rdi, [passfmt]
+	mov	rsi, [prognam]
+	mov	rdx, [data]
+	mov	ecx, [want]
+	xor	eax, eax
+	call	printf
+	xor	eax, eax
 	ret
