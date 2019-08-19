@@ -1,10 +1,11 @@
 ; SPDX-License-Identifier: GPL-2.0
 	segment	.data
+fmt	db	"%s: %#lx contains %d 1(s)", 0xa, 0
 data	dq	0xfedcba9876543210	; example data for bit counting
 want	dd	32			; 32 ones in data above
 	segment	.text
 	global	main
-	extern	strtol, atoi
+	extern	strtol, atoi, printf
 main
 	push	rbp
 	mov	rbp, rsp
@@ -44,6 +45,13 @@ main
 	jnz	.while
 	cmp	eax, [rsp+.want]
 	jne	.out
+	mov	rdi, fmt
+	mov	rsi, [rsp+.argv]
+	mov	rsi, [rsi+0x0]
+	mov	rdx, [rsp+.data]
+	mov	rcx, rax
+	xor	eax, eax
+	call	printf
 	xor	eax, eax
 .out	leave
 	ret
