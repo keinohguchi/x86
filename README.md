@@ -42,11 +42,17 @@ in Action.
 
 ## Tests
 
-`make test` will run fork(2)/execv(3) based unit tests:
+`make test` runs unit tests driven by the command line arguments
 
 ```sh
 $ make test
-hello_test:      PASS
+hello_test:     PASS
+cmdline_test:   PASS
+memory_test:    PASS
+register_test:  PASS
+bit_test:       PASS
+countbits_test: PASS
+factorial_test: PASS
 ```
 
 Happy Hacking!
